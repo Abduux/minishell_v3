@@ -1,10 +1,10 @@
 #include "../minishell.h"
 
-void free_all(t_input *inp, t_data *data)
+void free_all(t_data *data)
 {
     free_env_list(data->env_list);
 	free_env_list(data->export_list);
-    parse_free(inp);
+    parse_free(data->input);
     if(data->cmds_pids)
     {
         free(data->cmds_pids);
@@ -13,9 +13,9 @@ void free_all(t_input *inp, t_data *data)
     clear_history();
 }
 
-void    free_and_exit(unsigned char status, t_data *data , t_input *input)
+void    free_and_exit(unsigned char status, t_data *data)
 {
-    free_all(input, data);
+    free_all(data);
     exit(status);
 }
 

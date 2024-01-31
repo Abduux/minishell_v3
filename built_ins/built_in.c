@@ -18,7 +18,7 @@ static int   excute_builtin(t_input *input, t_data *data)
     else if (ft_strncmp(*input->args, "export", CMD_LEN) == 0)
         return(export(input, data));
     else if (ft_strncmp(*input->args, "exit", CMD_LEN) == 0)
-        return(exit_(data, input, EXIT_MINISHELL));
+        return(exit_(data, input));
     return (-1);
 }
 

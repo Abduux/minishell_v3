@@ -21,7 +21,7 @@ void	init_data(char **env, t_data *data)
 	save_fds(data);
 	data->cmds_pids = NULL;
 	tcgetattr(STDIN_FILENO , &data->term_attr);
-	data->env = env;
+	data->input = NULL;
 	export = ft_strsdup(env);
 	data->env_list = get_env_list(env);
 	data->export_list = get_export_list(export);
@@ -35,7 +35,6 @@ void	init_data(char **env, t_data *data)
 void minishell_cycle(t_data *data, int ac , char **av)
 {
 	char	*line;
-	t_input	*input_list;
 
 	(void)ac;
 	(void)av;
@@ -44,17 +43,18 @@ void minishell_cycle(t_data *data, int ac , char **av)
 	{
 		tcsetattr(STDIN_FILENO, TCSANOW, &data->term_attr);
 		data->syntax_error = 0;
-		input_list = parser(line, data);
+		data->input = parser(line, data);
 		if(line[0])
 			add_history(line);
 		free(line);
-		if (input_list)
-			execution(input_list, data);
-		parse_free(input_list);
+		if (data->input)
+			execution(data);
+		parse_free(data->input);
 		line = readline(PROMPT);
 	}
 	clear_history();
-	free_all(input_list, data);
+	data->input = NULL;
+	free_all(data);
 	printf("\n");
 }
 

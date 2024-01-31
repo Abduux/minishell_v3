@@ -29,7 +29,7 @@ EXECUTION 	= 	${X}/error.c ${X}/execution.c ${X}/execution_utils.c ${X}/executio
 SRC 		=	${BUILT_INS} ${PARSING} ${EXECUTION} main/main.c
 OBJ 		=	$(SRC:.c=.o)
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address -g
 NAME 		=	minishell
 REMOVE 		=	rm -rf
 

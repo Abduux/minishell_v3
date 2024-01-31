@@ -29,6 +29,8 @@ char* get_cmd_path(const char *cmd, t_data *data)
     char*   path;
     char*   full_path;
 
+    if(!cmd || !cmd[0])
+        return NULL;
     paths = ft_split(get_value_from_env("PATH", data->env_list), ':');
     i = -1;
     while (paths && paths[++i])
@@ -82,22 +84,20 @@ int run_cmd(t_input *input, t_data *data)
     int     status;
     char **env;
     
-    if(!*input->args)
-        return 0;
     status = 0;
     cmd_path = resovle_path(input->args[0], data, &status);
     if(status != 0)
     {
         if(cmd_path)
             free(cmd_path); 
-        free_and_exit(status, data, input);
+        free_and_exit(status, data);
     }
     env = from_list_to_array(data->env_list);
     execve(cmd_path, input->args,env);
     ft_printf("Error Execve : '%s'\n", cmd_path);
     free(cmd_path);
     free_strs(env);
-    free_and_exit(42, data, input);
+    free_and_exit(42, data);
     free(cmd_path);
     return (0);
 } 

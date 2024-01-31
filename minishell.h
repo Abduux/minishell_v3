@@ -75,11 +75,11 @@ typedef struct s_input
 
 typedef struct s_data
 {
-	char			**env;
 	struct termios	term_attr;
 	t_env			*env_list;
 	t_env			*export_list;
 	pid_t			*cmds_pids;
+	t_input			*input;
 	int 			syntax_error;
 	int				stdin;
 	int 			stdout;
@@ -87,15 +87,15 @@ typedef struct s_data
 }	t_data;
 
 char*	get_cmd_path(const char *cmd, t_data *data);
-void	execution(t_input *s_input, t_data *data);
+void	execution(t_data *data);
 int		allocate_pids(t_input *input_list, t_data *data);
 void 	wait_pids(t_data* data, int running_cmds);
 void    reset_fds(t_data *data);
 void    save_fds(t_data *data);
 void    handle_signals();
 void    dont_quit(pid_t pid);
-void	free_all(t_input *inp, t_data *data);
-void    free_and_exit(unsigned char status, t_data *data , t_input *input);
+void	free_all(t_data *data);
+void    free_and_exit(unsigned char status, t_data *data);
 int		set_exit_status(t_env **head, int exit_status);
 int		exit_status(int status);
 int		allocate_pids(t_input *input_list, t_data *data);
@@ -117,7 +117,7 @@ int		env(t_env *env);
 int		export(t_input *input, t_data *data);
 int		pwd(void);
 int		unset(t_data *data, t_input *input);
-int		exit_(t_data *data, t_input *input, int flag);
+int		exit_(t_data *data, t_input *input);
 int		is_cmd_ehco(t_input *input);
 
 t_env *get_env_list(char **env);

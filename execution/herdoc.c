@@ -6,7 +6,7 @@ static void herdoc_signal_handler(pid_t signal)
     exit(signal + 128);
 }
 
-int exec_herdoc(t_redirection *herdoc, t_data *data, t_input *input)
+int exec_herdoc(t_redirection *herdoc, t_data *data)
 {
     char    *line;
 
@@ -23,11 +23,12 @@ int exec_herdoc(t_redirection *herdoc, t_data *data, t_input *input)
     }
     free(line);
     close(herdoc->pipe[1]); 
-    free_and_exit(0, data, input);
+    free_and_exit(0, data);
+    printf("Exit Herdoc\n");
     return 0;
 }
 
-int save_herdoc_data(t_redirection *herdoc, t_data *data, t_input *input)
+int save_herdoc_data(t_redirection *herdoc, t_data *data)
 {
     pid_t   pid;
     int     status;
@@ -38,7 +39,7 @@ int save_herdoc_data(t_redirection *herdoc, t_data *data, t_input *input)
     if(pid == -1)
         return(-1);
     if(pid == 0)
-        exec_herdoc(herdoc, data, input);
+        exec_herdoc(herdoc, data);
     close(herdoc->pipe[1]);
     waitpid(pid, &status, 0);
     set_exit_status(&data->env_list, exit_status(status));
@@ -55,9 +56,9 @@ int    open_herdocs(t_input *input , t_data *data)
     tmp_red = input->redirect;
     while (tmp_red)
     {
-        if(tmp_red->type == REDIR_HEREDOC) // IF its a HERDOC OPNED
+        if(tmp_red->type == REDIR_HEREDOC)
         {
-            if(save_herdoc_data(tmp_red, data, input) != 0)
+            if(save_herdoc_data(tmp_red, data) != 0)
                 return (-1);
         }
         tmp_red = tmp_red->next;
@@ -67,18 +68,15 @@ int    open_herdocs(t_input *input , t_data *data)
 
 int    run_herdocs(t_input *inputs, t_data *data)
 {
-    t_input *tmp;
-
-    tmp = inputs;
     signal(SIGINT, dont_quit);
-    while (tmp)
+    while (inputs)
     {
-        if(open_herdocs(tmp, data) != 0)
+        if(open_herdocs(inputs, data) != 0)
         {
             handle_signals();
             return (-1);
         }
-        tmp = tmp->next;
+        inputs = inputs->next;
     }
     handle_signals();
     return (0);

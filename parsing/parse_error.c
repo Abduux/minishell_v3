@@ -21,6 +21,7 @@ void	unexpected_token_error(t_data *data, char *near)
 		else 
 			ft_printf("bash: syntax error near unexpected token `newline'\n");
 	}
+	set_exit_status(&data->env_list, 2);
 	data->syntax_error = 1;
 }
 
@@ -28,5 +29,6 @@ void	unexpected_eof_error(t_data *data)
 {
 	if (!data->syntax_error)
 		ft_printf("bash: unexpected EOF while looking for matching\n");
+	set_exit_status(&data->env_list, 2);
 	data->syntax_error = 1;
 }
