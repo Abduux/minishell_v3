@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 17:13:51 by ali               #+#    #+#             */
-/*   Updated: 2024/02/01 02:37:58 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:35:38 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ typedef struct s_data
 	t_env			*export_list;
 	pid_t			*cmds_pids;
 	t_input			*input;
+	char			*prompt;
 	int				syntax_error;
 	int				stdin;
 	int				stdout;
 	int				stderr;
 }	t_data;
 
+int					change_prompt(t_data *data, t_input *input);
 char				*get_cmd_path(const char *cmd, t_data *data);
 void				execution(t_data *data);
 int					allocate_pids(t_input *input_list, t_data *data);

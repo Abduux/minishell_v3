@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+         #
+#    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 21:03:24 by ali               #+#    #+#              #
-#    Updated: 2024/02/01 00:00:36 by mel-akhd         ###   ########.fr        #
+#    Updated: 2024/02/01 16:47:20 by ali              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ P			= 	parsing
 X			= 	execution
 
 # SOURCES -----------------------------------------------------------------------------
-BUILT_INS 	=	built_ins/built_in.c built_ins/cd.c built_ins/echo.c built_ins/env.c \
+BUILT_INS 	=	built_ins/built_in.c built_ins/cd.c built_ins/echo.c built_ins/env.c built_ins/prompt.c \
 				built_ins/export.c built_ins/pwd.c built_ins/unset.c\
 
 PARSING 	=	${P}/evaluate_quotes.c ${P}/expand.c ${P}/get_args.c ${P}/get_redirections.c \
@@ -29,7 +29,7 @@ EXECUTION 	= 	${X}/error.c ${X}/execution.c ${X}/execution_utils.c ${X}/executio
 SRC 		=	${BUILT_INS} ${PARSING} ${EXECUTION} main/main.c
 OBJ 		=	$(SRC:.c=.o)
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address -g
 NAME 		=	minishell
 REMOVE 		=	rm -rf
 

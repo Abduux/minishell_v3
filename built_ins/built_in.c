@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 22:11:26 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/02/01 00:23:58 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:39:28 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	excute_builtin(t_input *input, t_data *data)
 {
 	if (ft_strncmp(*input->args, "echo", CMD_LEN) == 0)
 		return (echo(input->args));
+	else if (ft_strncmp(*input->args, "prompt", CMD_LEN) == 0)
+		return (change_prompt(data, input));
 	else if (ft_strncmp(*input->args, "cd", CMD_LEN) == 0)
 		return (cd(*input, data));
 	else if (ft_strncmp(*input->args, "pwd", CMD_LEN) == 0)

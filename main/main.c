@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:16:40 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/02/01 02:37:50 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:34:37 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_data(char **env, t_data *data)
 	data->cmds_pids = NULL;
 	tcgetattr(STDIN_FILENO, &data->term_attr);
 	data->input = NULL;
+	data->prompt = ft_strdup("\x1b[1;34m""\x1b[1;34mMinishell v2.0$" "\x1b[0m"" ─> ");
 	export = ft_strsdup(env);
 	data->env_list = get_env_list(env);
 	data->export_list = get_export_list(export);
@@ -35,12 +36,10 @@ void	init_data(char **env, t_data *data)
 void	minishell_cycle(t_data *data, int ac, char **av)
 {
 	char		*line;
-	const char	*prompt;
 
 	(void)ac;
 	(void)av;
-	prompt = "\x1b[1;34m""\x1b[1;34mMinishell v2.0$" "\x1b[0m"" ─> ";
-	line = readline(prompt);
+	line = readline(data->prompt);
 	while (line != NULL)
 	{
 		tcsetattr(STDIN_FILENO, TCSANOW, &data->term_attr);
@@ -52,7 +51,7 @@ void	minishell_cycle(t_data *data, int ac, char **av)
 		if (data->input)
 			execution(data);
 		parse_free(data->input);
-		line = readline(prompt);
+		line = readline(data->prompt);
 	}
 	clear_history();
 	data->input = NULL;

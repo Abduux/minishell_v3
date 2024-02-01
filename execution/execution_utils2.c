@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 23:20:28 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/02/01 00:25:46 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:40:07 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	is_builtin(t_input *input)
 		|| ft_strncmp(*input->args, "env", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "unset", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "export", CMD_LEN) == 0
-		|| ft_strncmp(*input->args, "exit", CMD_LEN) == 0)
+		|| ft_strncmp(*input->args, "exit", CMD_LEN) == 0
+		|| ft_strncmp(*input->args, "prompt", CMD_LEN) == 0)
 		return (1);
 	return (0);
 }
