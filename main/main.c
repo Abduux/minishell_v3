@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:16:40 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/02/01 16:34:37 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 17:38:26 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ void	init_data(char **env, t_data *data)
 	handle_signals();
 }
 
-void	minishell_cycle(t_data *data, int ac, char **av)
+void	minishell_cycle(t_data *data)
 {
 	char		*line;
 
-	(void)ac;
-	(void)av;
 	line = readline(data->prompt);
 	while (line != NULL)
 	{
@@ -63,7 +61,9 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
+	if(ac != 1 || !av)
+		return(ft_printf_fd(STDERR_FILENO, "Usage : <./minishell> \n"));
 	init_data(env, &data);
-	minishell_cycle(&data, ac, av);
+	minishell_cycle(&data);	
 	return (0);
 }
