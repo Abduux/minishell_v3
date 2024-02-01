@@ -6,7 +6,7 @@
 #    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 21:03:24 by ali               #+#    #+#              #
-#    Updated: 2024/02/01 16:47:20 by ali              ###   ########.fr        #
+#    Updated: 2024/02/01 17:42:08 by ali              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ P			= 	parsing
 X			= 	execution
 
 # SOURCES -----------------------------------------------------------------------------
-BUILT_INS 	=	built_ins/built_in.c built_ins/cd.c built_ins/echo.c built_ins/env.c built_ins/prompt.c \
-				built_ins/export.c built_ins/pwd.c built_ins/unset.c\
+BUILTINS 	=	builtins/run_builtin.c builtins/cd.c builtins/echo.c builtins/env.c builtins/prompt.c \
+				builtins/export.c builtins/pwd.c builtins/unset.c\
 
 PARSING 	=	${P}/evaluate_quotes.c ${P}/expand.c ${P}/get_args.c ${P}/get_redirections.c \
 				${P}/get_redirections_helpers.c ${P}/parse_error.c ${P}/parse_free.c ${P}/parse_utils.c \
@@ -26,7 +26,7 @@ EXECUTION 	= 	${X}/error.c ${X}/execution.c ${X}/execution_utils.c ${X}/executio
 				${X}/execution_utils3.c ${X}/execution_utils4.c ${X}/exit_shell.c ${X}/exit_status.c ${X}/fds.c ${X}/free_handler.c \
 				${X}/herdoc.c ${X}/redirection.c ${X}/run_cmd.c ${X}/signals.c \
 
-SRC 		=	${BUILT_INS} ${PARSING} ${EXECUTION} main/main.c
+SRC 		=	${BUILTINS} ${PARSING} ${EXECUTION} main/main.c
 OBJ 		=	$(SRC:.c=.o)
 CC 			=	cc
 CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address -g

@@ -6,15 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:16:40 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/02/01 17:38:26 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 17:53:35 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	g_signal;
-
-void	init_data(char **env, t_data *data)
+static void	init_data(char **env, t_data *data)
 {
 	char	**export;
 
@@ -33,7 +31,7 @@ void	init_data(char **env, t_data *data)
 	handle_signals();
 }
 
-void	minishell_cycle(t_data *data)
+static void	display_prompt(t_data *data)
 {
 	char		*line;
 
