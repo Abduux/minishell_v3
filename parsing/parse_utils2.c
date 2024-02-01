@@ -6,13 +6,13 @@
 /*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:24:56 by mel-akhd          #+#    #+#             */
-/*   Updated: 2023/11/17 17:27:42 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 02:15:55 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*free_and_join(char *s1, char *variable_name, int origin_len, 
+char	*free_and_join(char *s1, char *variable_name, int origin_len,
 		int *result_index)
 {
 	char	*result;

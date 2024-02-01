@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:27:49 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/28 04:43:45 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 02:18:08 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@ char	*get_var_value(char *env_var)
 		return (NULL);
 	return (ft_strdup(env_var + i));
 }
-void print_env_list(t_env *env)
+
+void	print_env_list(t_env *env)
 {
 	while (env)
 	{
-		if(strncmp(env->name, "?", INT_MAX) != 0)
+		if (strncmp(env->name, "?", INT_MAX) != 0)
 		{
 			printf("%s=", env->name);
-			if(env->value)
-				printf("%s",env->value);
+			if (env->value)
+				printf("%s", env->value);
 			printf("\n");
-
 		}
 		env = env->next;
 	}
 }
 
-void print_env_array(char** env)
+void	print_env_array(char **env)
 {
 	while (*env)
 	{
 		printf("%s\n", *env);
-		env++;	
+		env++;
 	}
 }

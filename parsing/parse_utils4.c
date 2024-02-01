@@ -6,7 +6,7 @@
 /*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:37:03 by mel-akhd          #+#    #+#             */
-/*   Updated: 2023/12/24 19:57:34 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/02/01 02:17:44 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	*get_env_list(char **env)
 {
 	t_env	*begin;
-	t_env	*cur; 
+	t_env	*cur;
 	t_env	*new;
 
 	if (!env)

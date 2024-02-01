@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:16:40 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/31 17:54:15 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 02:37:50 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	g_signal;
 
 void	init_data(char **env, t_data *data)
 {
-	char **export;
+	char	**export;
 
 	save_fds(data);
 	data->cmds_pids = NULL;
-	tcgetattr(STDIN_FILENO , &data->term_attr);
+	tcgetattr(STDIN_FILENO, &data->term_attr);
 	data->input = NULL;
 	export = ft_strsdup(env);
 	data->env_list = get_env_list(env);
@@ -32,25 +32,27 @@ void	init_data(char **env, t_data *data)
 	handle_signals();
 }
 
-void minishell_cycle(t_data *data, int ac , char **av)
+void	minishell_cycle(t_data *data, int ac, char **av)
 {
-	char	*line;
+	char		*line;
+	const char	*prompt;
 
 	(void)ac;
 	(void)av;
-	line = readline(PROMPT);
+	prompt = "\x1b[1;34m""\x1b[1;34mMinishell v2.0$" "\x1b[0m"" ─> ";
+	line = readline(prompt);
 	while (line != NULL)
 	{
 		tcsetattr(STDIN_FILENO, TCSANOW, &data->term_attr);
 		data->syntax_error = 0;
 		data->input = parser(line, data);
-		if(line[0])
+		if (line[0])
 			add_history(line);
 		free(line);
 		if (data->input)
 			execution(data);
 		parse_free(data->input);
-		line = readline(PROMPT);
+		line = readline(prompt);
 	}
 	clear_history();
 	data->input = NULL;
@@ -60,7 +62,7 @@ void minishell_cycle(t_data *data, int ac , char **av)
 
 int	main(int ac, char **av, char **env)
 {
-	t_data data;
+	t_data	data;
 
 	init_data(env, &data);
 	minishell_cycle(&data, ac, av);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:37:58 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/31 15:48:07 by ali              ###   ########.fr       */
+/*   Updated: 2024/01/31 23:05:00 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@
 # include <unistd.h>
 # include <limits.h>
 
-#ifndef OPEN_MAX
-#define OPEN_MAX 1024
-#endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -47,9 +46,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_lstsize(t_list *lst);
 int					ft_printf(const char *format, ...);
-int					ft_printf_s(const char *s);
-int					put_base_ul(char *base, unsigned long uldecimal);
-int					put_base_i(char *base, int i_decimal);
+int					ft_printf_fd(int fd, const char *format, ...);
 int					set_buffer(int fd, char **buffer);
 int					gnl_allocat(char **ptr);
 int					ft_putchar_fd(char c, int fd);

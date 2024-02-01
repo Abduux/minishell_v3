@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:56:49 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/26 08:19:19 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 02:36:06 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	move_to_next_pipe(char **input, t_data *data)
-{
-	t_quotes_status	qt;
-	int				arg_found;
-
-	arg_found = 0;
-	init_qt(&qt);
-	while (**input)
-	{
-		proccess_both_quotes(**input, &qt);
-		if (!is_whit_sp(**input, qt.in_dobule, qt.in_single)
-			&& !is_pipe(**input, qt.in_dobule, qt.in_single))
-			arg_found = 1;
-		if (is_pipe(**input, qt.in_dobule, qt.in_single))
-		{
-			(*input)++;
-			while (**input == ' ')
-				(*input)++;
-			if (!(**input) || !arg_found)
-				unexpected_token_error(data, "|");
-			break ;
-		}
-		(*input)++;
-	}
-}
 
 t_input	*first_parse(char *input, t_data *data)
 {
@@ -90,33 +64,35 @@ t_input	*secode_parse(t_input *list_cpy, t_data *data)
 	return (list_begin);
 }
 
-void remove_empty_strings(char **strArray) {
-    if (strArray == NULL) {
-        return;  
-    }
+void	remove_empty_strings(char **strArray)
+{
+	int	i;
+	int	j;
 
-    int i = 0;
-
-    while (strArray[i] != NULL) {
-        if (strArray[i] == (char *)-1) {
-            int j = i;
-
-            while (strArray[j] != NULL) {
-                strArray[j] = strArray[j + 1];
-                ++j;
-            }
-
-            --i;
-        }
-
-        ++i;
-    }
+	i = 0;
+	if (strArray == NULL)
+		return ;
+	while (strArray[i] != NULL)
+	{
+		if (strArray[i] == (char *)-1)
+		{
+			j = i;
+			while (strArray[j] != NULL)
+			{
+				strArray[j] = strArray[j + 1];
+				++j;
+			}
+			--i;
+		}
+		++i;
+	}
 }
 
-t_input* third_parse(t_input *list_begin)
+t_input	*third_parse(t_input *list_begin)
 {
-	t_input *lst_cpy;
-	t_redirection *red;
+	t_input			*lst_cpy;
+	t_redirection	*red;
+
 	lst_cpy = list_begin;
 	while (lst_cpy)
 	{
@@ -124,41 +100,13 @@ t_input* third_parse(t_input *list_begin)
 		red = lst_cpy->redirect;
 		while (red)
 		{
-			if(red->file_name == (char*)-1)
+			if (red->file_name == (char *)-1)
 				red->file_name = NULL;
 			red = red->next;
 		}
 		lst_cpy = lst_cpy->next;
 	}
-	return list_begin;
-}
-void	print_parsed_list(t_input *list_begin)
-{
-	int				i;
-	t_redirection	*red_tmp;
-
-	i = 0;
-	while (list_begin)
-	{
-		//ft_printf("\n");
-		while (list_begin->args[i])
-		{
-			ft_printf("[%s]", list_begin->args[i]);
-			i++;
-		}
-		ft_printf("\n");
-		red_tmp = list_begin->redirect;
-		while (red_tmp)
-		{
-			ft_printf("[%s][file:%s] ", 
-				get_redirection_string(red_tmp->type),
-				red_tmp->file_name);
-			red_tmp = red_tmp->next;
-		}
-		list_begin = list_begin->next;
-		i = 0;
-		ft_printf("\n--------------------\n");
-	}
+	return (list_begin);
 }
 
 t_input	*parser(char *input, t_data *data)
@@ -173,6 +121,5 @@ t_input	*parser(char *input, t_data *data)
 		parse_free(input_lst);
 		return (NULL);
 	}
-	//print_parsed_list(input_lst);
 	return (input_lst);
 }

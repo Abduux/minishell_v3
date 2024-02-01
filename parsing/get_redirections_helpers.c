@@ -6,7 +6,7 @@
 /*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:10:02 by mel-akhd          #+#    #+#             */
-/*   Updated: 2023/12/02 22:24:38 by mel-akhd         ###   ########.fr       */
+/*   Updated: 2024/01/31 22:42:43 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	move_ptr_to_redir(char **input, int *redir, t_quotes_status *qt)
 	}
 }
 
-int	move_ptr_to_filename(char **input, int redir, t_quotes_status *qt, 
+int	move_ptr_to_filename(char **input, int redir, t_quotes_status *qt,
 	t_data *data)
 {
 	if (redir == REDIR_APPEND || redir == REDIR_HEREDOC)
 		(*input) += 2;
-	else 
+	else
 		(*input)++;
 	while (**input == ' ' || **input == '\t')
 		(*input)++;
@@ -37,7 +37,7 @@ int	move_ptr_to_filename(char **input, int redir, t_quotes_status *qt,
 	{
 		if (**input == '\0')
 			unexpected_token_error(data, "\n");
-		else 
+		else
 			unexpected_token_error(data, "|");
 		return (0);
 	}
@@ -46,7 +46,7 @@ int	move_ptr_to_filename(char **input, int redir, t_quotes_status *qt,
 
 void	move_ptr_to_endfilename(char **input, t_quotes_status *qt)
 {
-	while (**input && !is_whit_sp(**input, qt->in_dobule, qt->in_single) 
+	while (**input && !is_whit_sp(**input, qt->in_dobule, qt->in_single)
 		&& !is_pipe(**input, qt->in_dobule, qt->in_single))
 	{
 		if ((is_redirection(*input) && !qt->in_dobule && !qt->in_single))

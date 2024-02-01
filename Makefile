@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
+#    By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 21:03:24 by ali               #+#    #+#              #
-#    Updated: 2024/01/31 15:46:49 by ali              ###   ########.fr        #
+#    Updated: 2024/02/01 00:00:36 by mel-akhd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ PARSING 	=	${P}/evaluate_quotes.c ${P}/expand.c ${P}/get_args.c ${P}/get_redirec
 				${P}/parse_utils7.c ${P}/parser.c \
 
 EXECUTION 	= 	${X}/error.c ${X}/execution.c ${X}/execution_utils.c ${X}/execution_utils2.c \
-				${X}/execution_utils3.c ${X}/exit_shell.c ${X}/exit_status.c ${X}/fds.c ${X}/free_handler.c \
+				${X}/execution_utils3.c ${X}/execution_utils4.c ${X}/exit_shell.c ${X}/exit_status.c ${X}/fds.c ${X}/free_handler.c \
 				${X}/herdoc.c ${X}/redirection.c ${X}/run_cmd.c ${X}/signals.c \
 
 SRC 		=	${BUILT_INS} ${PARSING} ${EXECUTION} main/main.c

@@ -1,108 +1,119 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 22:18:11 by mel-akhd          #+#    #+#             */
+/*   Updated: 2024/01/31 23:06:54 by mel-akhd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char *cutvalue(char *str, int value_index)
+static	char	*cutvalue(char *str, int value_index)
 {
-    int i;
+	int		i;
+	char	*value;
 
-    i = 0;
-    char *value;
-    if(!str[value_index])
-        return (NULL);
-    value = ft_calloc(sizeof(char), ft_strlen(str) - value_index);
-    if(str[value_index] == '=')
-        value_index++;
-    while (str[i + value_index])
-    {
-        value[i] = str[i + value_index];
-        i++;
-    }
-    return (value);
+	i = 0;
+	if (!str[value_index])
+		return (NULL);
+	value = ft_calloc(sizeof(char), ft_strlen(str) - value_index);
+	if (str[value_index] == '=')
+		value_index++;
+	while (str[i + value_index])
+	{
+		value[i] = str[i + value_index];
+		i++;
+	}
+	return (value);
 }
 
-static char* cut_name(char *str , int *value_index)
+static char	*cut_name(char *str, int *value_index)
 {
-    int     len;
-    char*   name;
-    int     i;
+	int		len;
+	char	*name;
+	int		i;
 
-    len = 0;
-    i = 0;
-    while(str[len] == '=' || str[len] == '+')
-        len++;
-    while (str[len] && str[len] != '=')
-        len++;
-    *value_index = len;
-    if(str[len] == '=' && len > 0 && str[len - 1] == '+')
-        len--;
-    name = (char *)ft_calloc(sizeof(char), len + 1);
-    if(!name)
-        return(NULL);
-    while (str[i] && i < len)
-    {
-        name[i] = str[i];
-        i++;
-    }
-    return (name);
+	len = 0;
+	i = 0;
+	while (str[len] == '=' || str[len] == '+')
+		len++;
+	while (str[len] && str[len] != '=')
+		len++;
+	*value_index = len;
+	if (str[len] == '=' && len > 0 && str[len - 1] == '+')
+		len--;
+	name = (char *)ft_calloc(sizeof(char), len + 1);
+	if (!name)
+		return (NULL);
+	while (str[i] && i < len)
+	{
+		name[i] = str[i];
+		i++;
+	}
+	return (name);
 }
 
-static int add_variable(char *str , t_data *data)
+static	int	add_variable(char	*str, t_data *data)
 {
-    int     value_index;
-    char    *name;
-    char    *value;
+	int		value_index;
+	char	*name;
+	char	*value;
 
-    name = cut_name(str, &value_index);
-    value = cutvalue(str , value_index);
-    if (!valid_var_name(name))
-    {
-        ft_printf("minishell: export: `%s': not a valid identifier\n", str); // carefull
-        free(name);
-        free(value);
-        return (1);
-    }
-    else
-        join_env(name, value, data, to_join_values(str, value_index));
-    free(name);
-    free(value);
-    return(0);
+	name = cut_name(str, &value_index);
+	value = cutvalue(str, value_index);
+	if (!valid_var_name(name))
+	{
+		ft_err_msg(ERR_EXPORT_NOT_VALID_INDENTIFIER, 1, str);
+		free(name);
+		free(value);
+		return (1);
+	}
+	else
+		join_env(name, value, data, to_join_values(str, value_index));
+	free(name);
+	free(value);
+	return (0);
 }
 
-static void    display_export(t_env *env)
+static	void	display_export(t_env *env)
 {
-    t_env   *tmp;
+	t_env	*tmp;
 
-    tmp = env;
-    while (tmp)
-    {
-        ft_putstr_fd("declare -x ", STDOUT_FILENO);
-        ft_putstr_fd(tmp->name, STDOUT_FILENO);
-        if(tmp->value)
-        {
-            write(STDOUT_FILENO, "=\"", 2);
-            write(STDOUT_FILENO, tmp->value, ft_strlen(tmp->value));
-            write(STDOUT_FILENO, "\"", 1);
-        }
-        write(1, "\n", 1);
-        tmp = tmp->next;
-    }
+	tmp = env;
+	while (tmp)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(tmp->name, STDOUT_FILENO);
+		if (tmp->value)
+		{
+			write(STDOUT_FILENO, "=\"", 2);
+			write(STDOUT_FILENO, tmp->value, ft_strlen(tmp->value));
+			write(STDOUT_FILENO, "\"", 1);
+		}
+		write(1, "\n", 1);
+		tmp = tmp->next;
+	}
 }
 
-int export(t_input *input, t_data *data)
+int	export(t_input *input, t_data *data)
 {
-    int i;
-    int status;
+	int	i;
+	int	status;
 
-    i = 1;
-    if(arg_count(input->args) == 1)
-        display_export(data->export_list);
-    else 
-    {
-        while (input->args[i])
-        {
-            status = add_variable(input->args[i], data);
-            i++;
-        }
-    }
-    return (set_exit_status(&data->env_list, status));
+	i = 1;
+	if (arg_count(input->args) == 1)
+		display_export(data->export_list);
+	else
+	{
+		while (input->args[i])
+		{
+			status = add_variable(input->args[i], data);
+			i++;
+		}
+	}
+	return (set_exit_status(&data->env_list, status));
 }

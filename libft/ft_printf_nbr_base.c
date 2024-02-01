@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_nbr_base.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:19:08 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/28 09:27:24 by ali              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:52:35 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putnbr(char *base, unsigned long nbr, unsigned long baselong)
+int	ft_putnbr(int fd, char *base, unsigned long nbr, unsigned long baselong)
 {
 	int	count;
 
 	count = 1;
 	if (nbr >= baselong)
 	{
-		count += ft_putnbr(base, nbr / baselong, baselong);
+		count += ft_putnbr(fd, base, nbr / baselong, baselong);
 	}
-	ft_putchar_fd(base[nbr % baselong], STDERR_FILENO);
+	ft_putchar_fd(base[nbr % baselong], fd);
 	return (count);
 }
 
-int	put_base_ul(char *base, unsigned long ul_decimal)
+int	put_base_ul(int fd, char *base, unsigned long ul_decimal)
 {
 	int	base_len;
 
 	base_len = ft_strlen(base);
 	if (base_len == 0)
 		return (0);
-	return (ft_putnbr(base, ul_decimal, base_len));
+	return (ft_putnbr(fd, base, ul_decimal, base_len));
 }
 
-int	put_base_i(char *base, int i_decimal)
+int	put_base_i(int fd, char *base, int i_decimal)
 {
 	int		base_len;
 	int		is_minus;
@@ -50,7 +50,7 @@ int	put_base_i(char *base, int i_decimal)
 	{
 		l_decimal *= -1;
 		is_minus++;
-		ft_putchar_fd('-', STDERR_FILENO);
+		ft_putchar_fd('-', fd);
 	}
-	return (ft_putnbr(base, l_decimal, base_len) + is_minus);
+	return (ft_putnbr(fd, base, l_decimal, base_len) + is_minus);
 }

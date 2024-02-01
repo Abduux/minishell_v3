@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 23:20:28 by mel-akhd          #+#    #+#             */
+/*   Updated: 2024/02/01 00:25:46 by mel-akhd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	arg_count(char **args)
@@ -12,29 +24,27 @@ int	arg_count(char **args)
 		i++;
 		tmp++;
 	}
-	return(i);
+	return (i);
 }
 
-int is_numric(char *str)
+int	is_numric(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if(!str || !ft_strlen(str))
-        return (0);
-    if(str[i] == '-' || str[i] == '+')
-        i++;
-    while (str[i])
-        if(!ft_isdigit(str[i++]))
-            return (0);
-    return (1);
+	i = 0;
+	if (!str || !ft_strlen(str))
+		return (0);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+		if (!ft_isdigit(str[i++]))
+			return (0);
+	return (1);
 }
 
-int   is_builtin(t_input *input)
+int	is_builtin(t_input *input)
 {
-	if(!*input->args)
-        return 0;
-    if (ft_strncmp(*input->args , "echo", CMD_LEN) == 0 
+	if (ft_strncmp(*input->args, "echo", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "cd", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "pwd", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "env", CMD_LEN) == 0
@@ -42,18 +52,19 @@ int   is_builtin(t_input *input)
 		|| ft_strncmp(*input->args, "export", CMD_LEN) == 0
 		|| ft_strncmp(*input->args, "exit", CMD_LEN) == 0)
 		return (1);
-    return (0);
+	return (0);
 }
+
 int	valid_var_name(char *name)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(!name || (!ft_isalpha(name[i]) && name[i] != '_'))
-		return (0); // should start with alpha and under score only
+	if (!name || (!ft_isalpha(name[i]) && name[i] != '_'))
+		return (0);
 	while (name[i])
 	{
-		if(!ft_isalnum(name[i]) && name[i] != '_')
+		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (0);
 		i++;
 	}

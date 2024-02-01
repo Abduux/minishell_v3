@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:17:55 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/26 15:56:00 by ali              ###   ########.fr       */
+/*   Updated: 2024/02/01 02:15:16 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	skip_redirections(char **input)
 		while (**input == ' ' || **input == '\t')
 			(*input)++;
 		proccess_both_quotes(**input, &qt);
-		if(**input)
+		if (**input)
 			(*input)++;
-		while (**input && !is_whit_sp(**input, qt.in_dobule, qt.in_single) 
+		while (**input && !is_whit_sp(**input, qt.in_dobule, qt.in_single)
 			&& **input != '<' && **input != '>')
 		{
 			proccess_both_quotes(**input, &qt);
@@ -62,13 +62,8 @@ void	skip_redirections(char **input)
 	}
 }
 
-int should_stop_identifier(char c)
-{
-	return (!(ft_isalnum(c) || c == '_'));
-}
-
 int	is_valid_identifier_char(char c, int cur_i)
 {
-	return ((ft_isalnum(c) || c == '_') ||
-		((c == '@' || c == '!' || c == '?') && cur_i == 0));
+	return ((ft_isalnum(c) || c == '_')
+		|| ((c == '@' || c == '!' || c == '?') && cur_i == 0));
 }

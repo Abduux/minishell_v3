@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
+#    By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 01:09:18 by mel-akhd          #+#    #+#              #
-#    Updated: 2024/01/31 15:47:21 by ali              ###   ########.fr        #
+#    Updated: 2024/01/31 22:55:27 by mel-akhd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ft_strlcpy.c ft_tolower.c ft_bzero.c ft_putnbr_fd.c ft_strlen.c\
 ft_toupper.c ft_calloc.c ft_memchr.c ft_putstr_fd.c ft_strmapi.c ft_isalnum.c\
 ft_memcmp.c ft_split.c ft_strncmp.c ft_isalpha.c ft_memcpy.c ft_strchr.c\
 ft_strnstr.c ft_isascii.c ft_memmove.c ft_strdup.c ft_strrchr.c ft_striteri.c\
-ft_printf.c ft_printf_s.c ft_printf_nbr_base.c get_next_line.c get_next_line_utils.c
+ft_printf.c  ft_printf_nbr_base.c get_next_line.c get_next_line_utils.c
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstlast.c ft_lstsize.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstmap.c
 

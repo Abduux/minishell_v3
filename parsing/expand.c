@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-akhd <mel-akhd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:48:41 by mel-akhd          #+#    #+#             */
-/*   Updated: 2024/01/28 04:42:21 by ali              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:42:03 by mel-akhd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char	*expand_variable(char **word, t_env *env )
 	variable_start = *word;
 	while (**word && is_valid_identifier_char(**word, *word - variable_start))
 	{
-		if((ft_isdigit(**word) && *word - variable_start == 0)
+		if ((ft_isdigit(**word) && *word - variable_start == 0)
 			|| should_stop_identifier(**word))
 		{
 			(*word)++;
-			break;
+			break ;
 		}
 		(*word)++;
 	}
